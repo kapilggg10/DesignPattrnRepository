@@ -92,7 +92,7 @@ document.getElementById("calculate").onclick = function() {
     tipProcess.fireChanges(options);
 
     //If input values are validated then perform further calculations
-    if(validate.doIt){
+    if(validate.doIt()){
         const total = calculate.doIt();
         // get input values by ID and store in Options
         document.getElementById("totalTip").style.display = "block";
@@ -101,5 +101,4 @@ document.getElementById("calculate").onclick = function() {
     else{
         alert("enter Valid values");
     }
-
 }
