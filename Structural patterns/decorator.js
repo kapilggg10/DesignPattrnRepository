@@ -1,3 +1,4 @@
+//basic Tip calculator class
 class CalculateTip{
     constructor(billAmt,serviceQual,numOfPeople){
         this.billAmt = billAmt;
@@ -27,6 +28,9 @@ class CalculateTip{
     }
 }
 
+// Decorators will be used at run time to wrap around our object
+// Rupees wrapper will convert tip into rupees and display Rs. symbol with
+// tip in Rupees
 function rupeesWrapper(tip){
     const total = tip.calculation();
     document.getElementById("totalTip").style.display = "block";
@@ -34,6 +38,9 @@ function rupeesWrapper(tip){
     document.getElementById("tip").innerHTML = total * 70;
     document.getElementById("currency").innerHTML = '&#8377';
 }
+
+//// Euro wrapper will convert tip into Euro and display Euro symbol with
+// tip in Euro
 function euroWrapper(tip){
     const total = tip.calculation();
     document.getElementById("totalTip").style.display = "block";
@@ -41,6 +48,8 @@ function euroWrapper(tip){
     document.getElementById("tip").innerHTML = total* 0.89;
     document.getElementById("currency").innerHTML = '\u20AC';
 }
+
+//default wrapper or display method added on run time
 function dollarWrapper(tip){
     const total = tip.calculation();
     document.getElementById("totalTip").style.display = "block";

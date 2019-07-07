@@ -31,16 +31,16 @@ class CalculateTip{
 }
 
 class Invoker{
-    constructor(object,arguements){
+    constructor(object,arguements){ //encapsulate commands
         this.commandQueue = [];
         this.object = object;
         this.arguements = arguements;
     }
-    add(command){
+    add(command){ //add commands in queue
         this.commandQueue.push(command);
         return this;
     }
-    invoke(){
+    invoke(){ //execute all commands in queue
         this.commandQueue.forEach(command => this.object[command](this.arguements));
     }
 }
@@ -58,6 +58,7 @@ class Invoker{
 
     const tip = new CalculateTip();
     let invoker = new Invoker(tip,[billAmt,serviceQual,numOfPeople]);
+    //add all commands to execute at time of running invoker
     invoker.add("setter").add("validation").add("calculation");
     invoker.invoke();
 

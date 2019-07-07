@@ -39,7 +39,7 @@ class Invoker{
         this.arguements = arguements;
         this.result;
     }
-    do(command){
+    do(command){ //store result and return this instance of invoker
         this.result = this.object[command](this.arguements);
         if(this.result)
             return this;
@@ -61,6 +61,7 @@ class Invoker{
 
     const tip = new CalculateTip();
     let invoker = new Invoker(tip,[billAmt,serviceQual,numOfPeople]);
+    //chain of commands
     const total = invoker.do("setter").do("validation").do("calculation").result;
     //Display the tip
     document.getElementById("totalTip").style.display = "block";
