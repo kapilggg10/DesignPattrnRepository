@@ -1,10 +1,8 @@
 // It will set all necessary values
 // TipProcess is subject/observable
 class TipProcess{
-    constructor(options){
-        this.serviceQual = options.serviceQual;
-        this.numOfPeople = options.numOfPeople;
-        this.billAmt = options.billAmt;
+    constructor(data){
+        this.data = data;
         this.observerList = [];
     }
     subscribe(observer){
@@ -21,20 +19,20 @@ class TipProcess{
 
 // It is an observer because it's values are depanding upon Values in TipProcess
 class Validation{
-    constructor(options){
-        this.options = options;
+    constructor(tipProcess){
+        this.data = tipProcess.data;
     }
     update(change){
-        this.options = change;
+        this.data = change;
     }
     // To validate input values
     doIt(){
-        if (this.options.billAmt === "" || this.options.serviceQual == 0) {
+        if (this.data.billAmt === "" || this.data.serviceQual == 0) {
             // alert("Please enter values");
             return false;
           }
           //Check to see if this input is empty or less than or equal to 1
-          if (this.options.numOfPeople === "" || this.options.numOfPeople <= 1) {
+          if (this.data.numOfPeople === "" || this.data.numOfPeople <= 1) {
             this.numOfPeople = 1;
             document.getElementById("each").style.display = "none";
             return true;
@@ -48,15 +46,15 @@ class Validation{
 
 // It is an observer because it's values are depanding upon Values in TipProcess
 class Calculation{
-    constructor(options){
-        this.options = options;
+    constructor(data){
+        this.data = data;
     }
     update(change){
-        this.options = change;
+        this.data = change;
     }
     // It will calculate total tip for each person
     doIt(){
-        var total = (this.options.billAmt * this.options.serviceQual) / this.options.numOfPeople;
+        var total = (this.data.billAmt * this.data.serviceQual) / this.data.numOfPeople;
         //round to two decimal places
         total = Math.round(total * 100) / 100;
         //next line allows us to always have two digits after decimal point
@@ -83,18 +81,18 @@ tipProcess.subscribe(calculate);
 //get values in the form with ID
 document.getElementById("calculate").onclick = function() {
     // get input Values by ID
-    const options = {billAmt : document.getElementById("billamt").value,
+    const data = {billAmt : document.getElementById("billamt").value,
         serviceQual: document.getElementById("serviceQual").value,
         numOfPeople: document.getElementById("peopleamt").value
     };
 
     // Now change in value of subject
-    tipProcess.fireChanges(options);
+    tipProcess.fireChanges(data);
 
     //If input values are validated then perform further calculations
     if(validate.doIt()){
         const total = calculate.doIt();
-        // get input values by ID and store in Options
+        // get input values by ID and store in data
         document.getElementById("totalTip").style.display = "block";
         document.getElementById("tip").innerHTML = total;
     }
